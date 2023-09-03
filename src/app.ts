@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import router from './router';
 
 dotenv.config();
 
@@ -27,3 +28,5 @@ app.use(cookieParser());
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+app.use('/', router());
