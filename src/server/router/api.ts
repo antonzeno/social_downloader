@@ -3,5 +3,5 @@ import { downloadFromYoutube } from '../controllers/download';
 
 
 export default (router: express.Router) => {
-    router.post('/youtube', downloadFromYoutube);
+    router.post('/api/youtube', downloadFromYoutube);
 }

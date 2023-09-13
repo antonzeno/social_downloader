@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     cors({
         credentials: true,
+        exposedHeaders: ['Content-Disposition']
     })
 );
 // Use compression to compress responses
