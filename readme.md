@@ -1,62 +1,61 @@
 # Node Downloader
 
-# Node Downloader is a social media media downloader tool that allows you to easily download media files from platforms like YouTube, Facebook, TikTok, and more using their respective URLs.
+Node Downloader is a social media media downloader tool that allows you to easily download media files from platforms like YouTube, Facebook, TikTok, and more using their respective URLs.
 
-# Installation
+## Installation
 
-# To run this project, follow these steps:
+To run this project, follow these steps:
 
-# Root of the project:
+- Root of the project:
 npm install
 
-# Inside src/client:
+- Inside src/client:
 cd src/client
 npm install
 
-# Usage
+## Usage
 
-# To use Node Downloader, follow these steps:
+To use Node Downloader, follow these steps:
 
-# Start the server by running:
-npm start
+*Start the server by running:*
 
-# Open your browser and go to http://localhost:3000
+- npm start
 
-# Paste the URL of the media you want to download and follow the on-screen instructions.
+- Open your browser and go to http://localhost:3000
 
-# Configuration
+- Paste the URL of the media you want to download and follow the on-screen instructions.
 
-# No special configuration is required for this project.
+## Configuration
 
-# File Structure
+Ensure you have Node.js installed on your system
 
-# /
-# |-- src/
-# |   |-- client/
-# |   |   |-- // React app files and folders
-# |   |-- server/
-# |   |   |-- // Node.js server files and folders
-# |-- // Other project files and folders
+## File Structure
 
-# Dependencies
+###### /
+###### |-- src/
+###### |   |-- client/
+###### |   |   |-- // React app files and folders
+###### |   |-- server/
+###### |   |   |-- // Node.js server files and folders
+###### |-- // Other project files and folders
 
-# - Node.js
-# - React
-# // Add any other dependencies here
+## Dependencies
+ - Node.js
+ - React
 
-# Contributing
+## Contributing
 
-# We welcome contributions! If you'd like to contribute to Node Downloader, please follow these guidelines:
+We welcome contributions! If you'd like to contribute to Node Downloader, please follow these guidelines:
 
-# Fork the repository
-# Create a new branch
-# Make your changes
-# Submit a pull request
+- Fork the repository
+- Create a new branch
+- Make your changes
+- Submit a pull request
 
-# License
+## License
 
-# No license required.
+No license required.
 
-# Contact
+## Contact
 
-# For questions or feedback, please contact Anton Zeno at [tonizeno5@gmail.com].
+\ For questions or feedback, please contact Anton Zeno at [tonizeno5@gmail.com].

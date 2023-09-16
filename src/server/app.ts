@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import path from 'path';
+
 import router from './router';
 
 dotenv.config();
@@ -30,4 +32,5 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
+app.use('/videos', express.static(path.join(__dirname, 'downloads')));
 app.use('/', router());

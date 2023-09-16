@@ -1,1 +1,25 @@
 @import "bootstrap/dist/css/bootstrap.css";
+
+body {
+    background-color: rgb(241, 241, 241);
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.download-form input {
+    height: 60px;
+}
+
+.download-form button {
+    height: 60px;
+    width: 150px;
+}
+
+.header-container {
+    height: 30vh;
+}
