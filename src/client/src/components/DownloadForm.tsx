@@ -25,11 +25,7 @@ function DownloadForm() {
         event.preventDefault();
 
         if (isEmpty(url)) {
-            setOpenSnackbar(true);
-            setSnackbarMessage('URL cannot be empty');
-            setInterval(() => {
-                setOpenSnackbar(false)
-            }, 3000);
+            showSnackbar('URL cannot be empty.');
             return;
         }
 
@@ -72,6 +68,7 @@ function DownloadForm() {
                 setFileURL(response.headers['content-disposition']);
                 setDownloadReady(true);
             } else {
+                showSnackbar('Failed to download. Please check your URL.');
                 console.error('Failed to download:', response.data);
             }
 
@@ -80,14 +77,20 @@ function DownloadForm() {
 
         } catch (error) {
             console.error('Error:', error);
+            showSnackbar('We could not process your request. Please check the URL.');
+
             setIsDownloading(false);
             clearInterval(dotInterval);
 
         }
     };
 
-    const handleSnackbarClose = () => {
-        setOpenSnackbar(false);
+    const showSnackbar = (message: string) => {
+        setOpenSnackbar(true);
+        setSnackbarMessage(message);
+        setInterval(() => {
+            setOpenSnackbar(false)
+        }, 4000);
     };
 
     return (
@@ -97,7 +100,7 @@ function DownloadForm() {
                 autoHideDuration={6000}
 
             >
-                <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
+                <Alert onClose={() => setOpenSnackbar(false)} severity="error" sx={{ width: '100%' }}>
                     {snackbarMessage}
                 </Alert>
             </Snackbar>

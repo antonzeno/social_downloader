@@ -28,6 +28,12 @@ app.use(
 app.use(compression());
 app.use(cookieParser());
 
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
