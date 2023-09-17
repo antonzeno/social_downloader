@@ -78,10 +78,8 @@ function DownloadForm() {
         } catch (error) {
             console.error('Error:', error);
             showSnackbar('We could not process your request. Please check the URL.');
-
             setIsDownloading(false);
             clearInterval(dotInterval);
-
         }
     };
 
@@ -97,15 +95,13 @@ function DownloadForm() {
         <>
             <Snackbar
                 open={openSnackbar}
-                autoHideDuration={6000}
-
-            >
+                autoHideDuration={6000}>
                 <Alert onClose={() => setOpenSnackbar(false)} severity="error" sx={{ width: '100%' }}>
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-            <Form className="download-form d-flex flex-md-row flex-column align-items-center p-4 rounded border border-gray bg-white w-75" onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicEmail" className="w-100 me-md-2">
+            <Form className="download-form d-flex flex-md-row flex-column align-items-center p-4 rounded border border-gray bg-white" onSubmit={handleSubmit}>
+                <Form.Group className="w-100 me-md-2">
                     <FormControl
                         type="text"
                         name="url"
@@ -122,7 +118,6 @@ function DownloadForm() {
             </Form>
 
             {(isDownloading || downloadReady) && <MediaDownloader isDownloading={isDownloading} downloadReady={downloadReady} message={message} dots={dots} mediaUrl={fileURL} />}
-
         </>
     );
 }

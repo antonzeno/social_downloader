@@ -11,6 +11,11 @@ body {
     flex-direction: column;
 }
 
+.register-form,
+.login-form {
+    max-width: 450px;
+}
+
 .download-form input {
     height: 60px;
 }
