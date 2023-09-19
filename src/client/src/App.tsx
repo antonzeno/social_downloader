@@ -10,7 +10,7 @@ import Profile from './components/Profile/Profile';
 import { AuthContext } from './context/AuthContext';
 
 function App() {
-  const { userLoggedIn } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   return (
     <>
@@ -20,15 +20,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/login"
-            element={userLoggedIn ? <Navigate to="/" /> : <Login />}
+            element={isAuthenticated ? <Navigate to="/" /> : <Login />}
           />
           <Route
             path="/register"
-            element={userLoggedIn ? <Navigate to="/" /> : <Register />}
+            element={isAuthenticated ? <Navigate to="/" /> : <Register />}
           />
           <Route
             path="/profile"
-            element={!userLoggedIn ? <Navigate to="/" /> : <Profile />}
+            element={!isAuthenticated ? <Navigate to="/" /> : <Profile />}
           />
         </Routes>
       </BrowserRouter>

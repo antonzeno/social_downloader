@@ -11,20 +11,20 @@ interface DecodedToken {
 }
 
 interface AuthContextValue {
-    userLoggedIn: boolean;
+    isAuthenticated: boolean;
     username?: string;
     login: () => void;
     logout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextValue>({
-    userLoggedIn: false,
+    isAuthenticated: false,
     login: () => { },
     logout: () => { },
 });
 
 export function AuthProvider({ children }: AuthContextProps) {
-    const [userLoggedIn, setUserLoggedIn] = useState<boolean>(isLoggedIn().loggedIn);
+    const [isAuthenticated, setUserLoggedIn] = useState<boolean>(isLoggedIn().loggedIn);
     const [username, setUsername] = useState<string | undefined>(isLoggedIn().username);
 
     function isLoggedIn() {
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: AuthContextProps) {
 
 
     return (
-        <AuthContext.Provider value={{ userLoggedIn, username, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, username, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

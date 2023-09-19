@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
 import CircularProgress from '@mui/joy/CircularProgress';
@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import { isEmpty } from 'lodash';
 
 import MediaDownloader from './MediaDownloader';
+import { AuthContext } from '../../context/AuthContext';
 
 
 function DownloadForm() {
@@ -19,7 +20,12 @@ function DownloadForm() {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [fileURL, setFileURL] = useState('');
-
+    const { isAuthenticated } = useContext(AuthContext);
+    const maxDownloadCount = isAuthenticated ? 999999 : 1;
+    const [downloadCount, setDownloadCount] = useState(() => {
+        const storedDownloadCount = localStorage.getItem('downloadCount');
+        return storedDownloadCount !== null ? parseInt(storedDownloadCount, 10) : 0;
+    });
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -29,9 +35,16 @@ function DownloadForm() {
             return;
         }
 
+        setDownloadCount(downloadCount + 1);
+        localStorage.setItem('downloadCount', (downloadCount + 1).toString());
+
+        if (maxDownloadCount < downloadCount) {
+            alert('You reached max number of downloads. Please login to download more.');
+            return;
+        }
+
         setIsDownloading(true);
         setDownloadReady(false);
-
         const dotInterval = setInterval(() => {
             setDots(prevDots => prevDots.length >= 3 ? '' : prevDots + '.');
         }, 1000);
@@ -62,7 +75,6 @@ function DownloadForm() {
                     url: url,
                 },
             });
-
 
             if (response.status === 200) {
                 setFileURL(response.headers['content-disposition']);
@@ -100,7 +112,7 @@ function DownloadForm() {
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-            <Form className="download-form d-flex flex-md-row flex-column align-items-center p-4 rounded  bg-white" onSubmit={handleSubmit}>
+            <Form className="download-form d-flex flex-md-row flex-column align-items-center p-4 rounded shadow-sm bg-white" onSubmit={handleSubmit}>
                 <Form.Group className="w-100 me-md-2">
                     <FormControl
                         type="text"

@@ -20,12 +20,12 @@ function toSupportedFormat(url: string) {
     return url;
 }
 
-const download = async (mediaFile: MediaFile) => {
+const download = (mediaFile: MediaFile): Promise<string> => {
     const localFilePath = `src/server/downloads/${mediaFile.name}.${mediaFile.ext}`;
     const urlObject = new URL(mediaFile.url);
     const downloader = urlObject.protocol === 'https:' ? https : http;
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
         const fileStream = fs.createWriteStream(localFilePath);
 
         downloader.get(mediaFile.url, (response) => {
@@ -34,7 +34,7 @@ const download = async (mediaFile: MediaFile) => {
 
                 fileStream.on('finish', () => {
                     console.log(`File downloaded to ${localFilePath}`);
-                    resolve();
+                    resolve(localFilePath);
                 });
             } else {
                 console.error(`Failed to download file. Status code: ${response.statusCode}`);
@@ -46,6 +46,7 @@ const download = async (mediaFile: MediaFile) => {
         });
     });
 }
+
 
 export const downloadFromYoutube = async (req: express.Request, res: express.Response) => {
 
@@ -77,7 +78,7 @@ export const downloadFromYoutube = async (req: express.Request, res: express.Res
                 url: mediaFileData.url,
             };
 
-            await download(mediaFile);
+            const localFilePath = await download(mediaFile);
 
             const fileName = `${mediaFile.name}.${mediaFile.ext}`;
             const filePath = path.join(__dirname, '../downloads', 'Me at the zoo.mp4');

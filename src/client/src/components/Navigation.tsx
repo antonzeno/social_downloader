@@ -7,7 +7,7 @@ const logo = require('../assets/images/logo.png')
 
 
 const Navigation = () => {
-    const { userLoggedIn, logout, username } = useContext(AuthContext);
+    const { isAuthenticated, logout, username } = useContext(AuthContext);
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -19,7 +19,7 @@ const Navigation = () => {
                         <Nav.Link href="/">Home</Nav.Link>
                     </Nav>
                     <Nav className="ml-auto">
-                        {!userLoggedIn ?
+                        {!isAuthenticated ?
                             <>
                                 <Nav.Link href="/login">Login</Nav.Link>
                                 <Nav.Link href="/register">Register</Nav.Link>
