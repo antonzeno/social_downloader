@@ -7,7 +7,7 @@ const logo = require('../assets/images/logo.png')
 
 
 const Navigation = () => {
-    const { userLoggedIn, login, logout } = useContext(AuthContext);
+    const { userLoggedIn, logout, username } = useContext(AuthContext);
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -24,7 +24,11 @@ const Navigation = () => {
                                 <Nav.Link href="/login">Login</Nav.Link>
                                 <Nav.Link href="/register">Register</Nav.Link>
                             </> :
-                            <Nav.Link href="/" onClick={logout}>Logout</Nav.Link>
+                            <Nav className="me-auto">
+                                <Nav.Link href="/profile" className='fw-bold bold'>{username}</Nav.Link>
+                                <Nav.Link href="/" onClick={logout}>Logout</Nav.Link>
+                            </Nav>
+
                         }
 
                     </Nav>

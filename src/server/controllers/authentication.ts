@@ -29,7 +29,11 @@ export const login = async (req: express.Request, res: express.Response) => {
 
         await user.save();
 
-        const token = jwt.sign({ userId: user._id }, 'secretKey', { expiresIn: '1h' });
+        const token = jwt.sign({
+            userId: user._id,
+            username: user.username,
+            email: user.email
+        }, 'secretKey', { expiresIn: '1h' });
 
         return res.status(200).json({ token, user });
 
