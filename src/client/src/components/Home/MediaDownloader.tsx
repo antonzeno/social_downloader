@@ -36,7 +36,7 @@ const MediaDownloader: FunctionComponent<MediaDownloaderProps> = ({ isDownloadin
     };
 
     return (
-        <div className="text-center d-flex flex-column flex-lg-row justify-content-center align-items-center rounded border border-gray bg-white mt-4 p-4">
+        <div className="text-center d-flex flex-column flex-lg-row justify-content-center align-items-center rounded shadow-sm bg-white mt-4 p-4">
 
 
             {

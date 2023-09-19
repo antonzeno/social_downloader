@@ -100,7 +100,7 @@ function DownloadForm() {
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-            <Form className="download-form d-flex flex-md-row flex-column align-items-center p-4 rounded border border-gray bg-white" onSubmit={handleSubmit}>
+            <Form className="download-form d-flex flex-md-row flex-column align-items-center p-4 rounded  bg-white" onSubmit={handleSubmit}>
                 <Form.Group className="w-100 me-md-2">
                     <FormControl
                         type="text"

@@ -6,13 +6,14 @@ import Navigation from "./components/Navigation";
 import Home from './components/Home/Home';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
-import { AuthContext, AuthProvider } from './context/AuthContext';
+import Profile from './components/Profile/Profile';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
   const { userLoggedIn } = useContext(AuthContext);
 
   return (
-    <AuthProvider>
+    <>
       <Navigation />
       <BrowserRouter>
         <Routes>
@@ -25,9 +26,13 @@ function App() {
             path="/register"
             element={userLoggedIn ? <Navigate to="/" /> : <Register />}
           />
+          <Route
+            path="/profile"
+            element={!userLoggedIn ? <Navigate to="/" /> : <Profile />}
+          />
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+    </>
   );
 }
 
