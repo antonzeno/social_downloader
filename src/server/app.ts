@@ -5,6 +5,7 @@ import cors from 'cors';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import mongoose from 'mongoose';
 
 import router from './router';
 
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Enable CORS to allow cross-origin requests
 app.use(
     cors({
+        origin: 'http://localhost:3000',
         credentials: true,
         exposedHeaders: ['Content-Disposition']
     })
@@ -37,6 +39,13 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+const MONGO_URL = process.env.MONGO_URL;
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGO_URL as string);
+mongoose.connection.on('error', (error: Error) => console.log(error));
+
 
 app.use('/videos', express.static(path.join(__dirname, 'downloads')));
 app.use('/', router());
