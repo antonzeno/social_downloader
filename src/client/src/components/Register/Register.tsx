@@ -38,10 +38,8 @@ function Register() {
 
     useEffect(() => {
         setValidPassword(PWD_REGEX.test(password));
-    }, [password]);
-
-    useEffect(() => {
         setValidPassword2(!isEmpty(password) && !isEmpty(password2) && password === password2);
+
     }, [password, password2]);
 
     useEffect(() => {
@@ -67,9 +65,15 @@ function Register() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         if (!validUsername) {
             alert('Username must be at least 6 characters.')
+            return;
+        }
+
+        if (!validPassword) {
+            alert('Passwords must be at least 8 characters.')
             return;
         }
 
@@ -79,8 +83,6 @@ function Register() {
         }
 
         try {
-            setIsSubmitting(true);
-
             const response = await axios.post('http://localhost:8001/auth/register', {
                 email,
                 password,
@@ -101,7 +103,7 @@ function Register() {
             if (!err.response) {
                 setErrMsg("No Server Response");
             } else if (err.response?.status === 409) {
-                setErrMsg("Username Taken");
+                setErrMsg("User is already registered");
             } else {
                 setErrMsg("Registration Failed");
             }
@@ -116,8 +118,7 @@ function Register() {
             <Form className="container register-form d-flex flex-column align-items-center p-4 rounded border border-gray bg-white" onSubmit={handleSubmit}>
                 <h1>Register</h1>
                 <Form.Group className="w-100 me-md-2">
-                    <FormLabel>Username <FontAwesomeIcon icon={faCheck} className={validUsername ? "d-inline" : "d-none"} />
-                    </FormLabel>
+                    <FormLabel>Username <FontAwesomeIcon icon={faCheck} className={validUsername ? "d-inline" : "d-none"} /></FormLabel>
                     <FormControl
                         type="text"
                         name="username"
@@ -125,6 +126,7 @@ function Register() {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
+
                     <FormLabel>Email <FontAwesomeIcon icon={faCheck} className={validEmail ? "d-inline" : "d-none"} /></FormLabel>
                     <FormControl
                         type="email"
@@ -133,6 +135,7 @@ function Register() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
+
                     <FormLabel>Password <FontAwesomeIcon icon={faCheck} className={validPassword ? "d-inline" : "d-none"} /> </FormLabel>
                     <FormControl
                         type="password"
@@ -156,8 +159,8 @@ function Register() {
                 <Button variant="primary" type="submit" className='mt-2' disabled={isSubmitting}>
                     {isSubmitting ? <CircularProgress size="sm" /> : 'Register'}
                 </Button>
-                {success && <div className='text-success'>Registration successful.</div>}
-                {!isEmpty(errMsg) && <div className='text-danger'>{errMsg}</div>}
+                {success && <div className='text-success mt-2'>Registration successful.</div>}
+                {!isEmpty(errMsg) && <div className='text-danger mt-2'>{errMsg}</div>}
             </Form>
         </div>
     );
