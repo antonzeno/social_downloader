@@ -36,12 +36,14 @@ function DownloadForm() {
         }
 
         setDownloadCount(downloadCount + 1);
-        localStorage.setItem('downloadCount', (downloadCount + 1).toString());
 
-        if (maxDownloadCount < downloadCount) {
+        console.log(Date.now() - parseInt(localStorage.getItem('lastDownloadTime') as string, 10))
+        if (maxDownloadCount < downloadCount && (localStorage.getItem('lastDownloadTime') && Date.now() - parseInt(localStorage.getItem('lastDownloadTime') as string, 10) < 3600000)) {
             alert('You reached max number of downloads. Please login to download more.');
             return;
         }
+        localStorage.setItem('downloadCount', (downloadCount + 1).toString());
+        localStorage.setItem('lastDownloadTime', Date.now().toString());
 
         setIsDownloading(true);
         setDownloadReady(false);
